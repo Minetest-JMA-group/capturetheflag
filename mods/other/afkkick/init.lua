@@ -7,9 +7,9 @@ to this software to the public domain worldwide. This software is
 distributed without any warranty.
 ]]
 
-local MAX_INACTIVE_TIME = 120
+local MAX_INACTIVE_TIME = 250
 local CHECK_INTERVAL = 1
-local WARN_TIME = 20
+local WARN_TIME = 30
 
 local players = {}
 local checkTimer = 0
@@ -72,7 +72,7 @@ minetest.register_globalstep(function(dtime)
 				--Warn player if he/she has less than WARN_TIME seconds to move or be kicked
 				if players[playerName]["lastAction"] + MAX_INACTIVE_TIME - WARN_TIME < currGameTime then
 					minetest.chat_send_player(playerName, minetest.colorize("#FF8C00",
-                        S("Warning, you have @1 seconds to move or be kicked",
+                        S("Warning, you have @1 seconds to move or be kicked due to inactivity.",
                     tostring(players[playerName]["lastAction"] + MAX_INACTIVE_TIME - currGameTime + 1))))
 				end
 			end
